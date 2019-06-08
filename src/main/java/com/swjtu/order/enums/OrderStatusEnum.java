@@ -1,8 +1,5 @@
 package com.swjtu.order.enums;
 
-import lombok.Data;
-import lombok.Getter;
-
 /**
  * @author 李天峒
  * @date 2019/4/12 23:06
@@ -11,7 +8,7 @@ public enum OrderStatusEnum {
     /** 订单状态*/
     NEW(0,"未支付"),
     FINISH(1,"已支付"),
-    cancle(2,"已取消");
+    CANCLE(2,"已取消");
 
     private Integer code;
 

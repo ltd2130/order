@@ -6,7 +6,7 @@ import com.swjtu.order.enums.ResultEnum;
  * @author 李天峒
  * @date 2019/4/16 23:53
  */
-public class OrderException  extends RuntimeException{
+public class OrderException extends RuntimeException{
 
     private Integer code;
 

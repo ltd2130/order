@@ -1,9 +1,9 @@
 package com.swjtu.order.controller;
 
 import com.swjtu.order.converter.OrderForm2OrderDTO;
-import com.swjtu.order.exception.OrderException;
 import com.swjtu.order.dto.OrderDTO;
 import com.swjtu.order.enums.ResultEnum;
+import com.swjtu.order.exception.OrderException;
 import com.swjtu.order.form.OrderForm;
 import com.swjtu.order.service.OrderService;
 import com.swjtu.order.utils.ResultVOUtil;
@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -39,7 +40,7 @@ public class OrderController {
 
     @GetMapping("/test")
     public void test(){
-        log.info("【测试！】");
+        log.info("【测试2】");
     }
 
     @PostMapping("/create")
