@@ -45,6 +45,8 @@ public class ClientController {
         //3. 第三种方式（利用@LoadBalanced，可在restTemplate里使用应用名字代指IP地址和端口号）
 //        String response = restTemplate.getForObject("http://PRODUCT/product/Msg", String.class);
 //        log.info("response={}", response);
+
+        //4. 第四种方式（使用FeignClient来配置相应的访问接口）
         return response;
     }
 }

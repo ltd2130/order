@@ -10,6 +10,7 @@ import com.swjtu.order.utils.ResultVOUtil;
 import com.swjtu.order.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import java.util.Map;
  * @date 2019/4/16 22:03
  */
 @RestController
+@RequestMapping("/order")
 @Slf4j
 public class OrderController {
 
@@ -37,11 +39,6 @@ public class OrderController {
     //3. 计算总价
     //4. 扣库存
     //5. 订单入库
-
-    @GetMapping("/test")
-    public void test(){
-        log.info("【测试2】");
-    }
 
     @PostMapping("/create")
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,

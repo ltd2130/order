@@ -12,10 +12,12 @@ import com.swjtu.order.utils.KeyUtil;
 import com.swjtu.product.client.ProductClient;
 import com.swjtu.product.common.DecreaseStockInput;
 import com.swjtu.product.common.ProductInfoOutput;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,14 +41,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductClient productClient;
 
-    @Override
-    public void test() {
-        log.info("【日志打印】");
-    }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public OrderDTO create(OrderDTO orderDTO) {
         String orderId = KeyUtil.genUniqueKey();
+        String detailId = "";
         //查询商品信息（调用商品信息查询接口）
         List<String> productIdList = orderDTO.getOrderDetailList().stream()
                 .map(OrderDetail::getProductId)
@@ -64,9 +64,11 @@ public class OrderServiceImpl implements OrderService {
                             .add(orderAmount);
                     BeanUtils.copyProperties(productInfo, orderDetail);
                     orderDetail.setOrderId(orderId);
-                    orderDetail.setDetailId(KeyUtil.genUniqueKey());
+                    detailId = KeyUtil.genUniqueKey();
+                    orderDetail.setDetailId(detailId);
                     //订单详情入库
                     orderDetailRepository.save(orderDetail);
+                    log.info("【详单入库成功】detailId={}",detailId);
                 }
             }
         }
@@ -81,11 +83,11 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster orderMaster = new OrderMaster();
         orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
-        log.info("【orderMaster】={}", orderMaster);
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMasterRepository.save(orderMaster);
+        log.info("【订单入库成功】orderId={}", orderId);
         return orderDTO;
     }
 }
