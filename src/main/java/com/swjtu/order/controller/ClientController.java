@@ -1,8 +1,8 @@
 package com.swjtu.order.controller;
 
+import com.swjtu.order.client.OrderClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +22,11 @@ public class ClientController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
-
     @Autowired
     private RestTemplate restTemplate;
+
+//    @Autowired
+//    private OrderClient orderClient;
 
     @GetMapping("/getProductMsg")
     public String getProductMsg(){
@@ -34,12 +36,12 @@ public class ClientController {
 //        String response = restTemplate.getForObject("http://localhost:8080/product/Msg", String.class);
 
         //2. 第二种方法（利用loadBalancerClient 动态的获取服务器的ip和端口号，然后再使用RestTemplate）
-        ServiceInstance serviceInstance = loadBalancerClient.choose("PRODUCT");
-        String url = String.format("http://%s:%s",serviceInstance.getHost(), serviceInstance.getPort()) + "/product/Msg";
-        RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.getForObject(url,String.class);
-        log.info("【服务地址】 ip={}" , serviceInstance.getHost());
-        log.info("【服务端口】 port={}" , serviceInstance.getPort());
+//        ServiceInstance serviceInstance = loadBalancerClient.choose("PRODUCT");
+//        String url = String.format("http://%s:%s",serviceInstance.getHost(), serviceInstance.getPort()) + "/product/Msg";
+//        RestTemplate restTemplate = new RestTemplate();
+//        String response = restTemplate.getForObject(url,String.class);
+//        log.info("【服务地址】 ip={}" , serviceInstance.getHost());
+//        log.info("【服务端口】 port={}" , serviceInstance.getPort());
 
 
         //3. 第三种方式（利用@LoadBalanced，可在restTemplate里使用应用名字代指IP地址和端口号）
@@ -47,6 +49,9 @@ public class ClientController {
 //        log.info("response={}", response);
 
         //4. 第四种方式（使用FeignClient来配置相应的访问接口）
-        return response;
+//        String response = orderClient.getProductMsg();
+//        return response;
+
+        return null;
     }
 }

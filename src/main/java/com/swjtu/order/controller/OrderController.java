@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -34,17 +31,22 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    //1. 表单验证
-    //2. 查询商品信息（调用商品信息查询接口）
-    //3. 计算总价
-    //4. 扣库存
-    //5. 订单入库
-
+    /**
+     * 创建订单
+     * 1. 表单验证
+     * 2. 查询商品信息（调用商品信息查询接口）
+     * 3. 计算总价
+     * 4. 扣库存
+     * 5. 订单入库
+     * @param orderForm 订单列表
+     * @param bindingResult 规范性校验
+     * @return
+     */
     @PostMapping("/create")
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,
-                                                BindingResult bindingResult){
+                                                BindingResult bindingResult) {
         log.info("【创建订单】");
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             log.error("【创建订单】参数错误, OrderForm ={}", orderForm);
             throw new OrderException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
@@ -52,7 +54,7 @@ public class OrderController {
 
         //orderForm -> orderDTO
         OrderDTO orderDTO = OrderForm2OrderDTO.converter(orderForm);
-        if(CollectionUtils.isEmpty(orderDTO.getOrderDetailList())){
+        if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("【创建订单】购物车为空");
             throw new OrderException(ResultEnum.CART_EMPTY);
         }
@@ -62,5 +64,16 @@ public class OrderController {
         Map<String, String> map = new HashMap<>();
         map.put("orderId", result.getOrderId());
         return ResultVOUtil.success(map);
+    }
+
+    /**
+     * 完结订单
+     * @param orderId 订单id
+     * @return
+     */
+    @PostMapping("/finish")
+    public ResultVO<OrderDTO> finish(@RequestParam("orderId") String orderId) {
+        OrderDTO orderDTO = orderService.finish(orderId);
+        return ResultVOUtil.success(orderDTO);
     }
 }
