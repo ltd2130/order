@@ -19,6 +19,7 @@ public class MqReceiver {
     private static final Logger log = LoggerFactory.getLogger(MqReceiver.class);
 
     //1、@RabbitListener(queues = "myQueue")（需要手动在RabbitMQ界面添加队列）
+
     //2、自动生成队列 @RabbitListener(queuesToDeclare = @Queue("myQueue"))
 //    @RabbitListener(bindings = @QueueBinding(
 //            exchange = @Exchange("myExchange"),
@@ -28,8 +29,8 @@ public class MqReceiver {
 //    public void process(String message){
 //        log.info("MqReceiver: {}", message);
 //    }
-    //3、自动创建，Exchange和Queue进行绑定
 
+    //3、自动创建，Exchange和Queue进行绑定
     /**
      * 数码供应商 接受消息
      * @param message

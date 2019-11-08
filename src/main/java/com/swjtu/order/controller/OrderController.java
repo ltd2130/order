@@ -43,6 +43,7 @@ public class OrderController {
      * @return
      */
     @PostMapping("/create")
+    @Transactional
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,
                                                 BindingResult bindingResult) {
         log.info("【创建订单】");

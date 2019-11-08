@@ -10,5 +10,52 @@ spring:
   redis:
     host: 192.168.100.101
     port: 6380
+#    需要发送服务信息到zipkin的地址
+  zipkin:
+    base-url: http://192.168.100.101:9411/
+  sleuth:
+    sampler:
+      probability: 1
 server:
   port: 8083
+hystrix:
+  command:
+    #    default默认设置全局的超时或者熔断参数（也可以给某个特定的方法设置，例如下面的getProductInfoList）
+    default:
+      #     以下设置超时
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+      #     以下设置熔断
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 10
+        sleepWindowInMilliseconds: 5000
+        errorThresholdPercentage: 60
+    #    这里单独给方法“getProductInfoList”设置超时配置参数
+    getProductInfoList:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+#配置Feign客户端的服务降级以及超时降级时间
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+  hystrix:
+    enabled: true
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+##        include: ["hystrix-stream"]
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug

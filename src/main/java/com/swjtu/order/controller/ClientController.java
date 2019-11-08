@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
  * @date 2019/4/23 0:10
  */
 @RestController
-@RequestMapping(value = "/com/swjtu/order")
 @Slf4j
 public class ClientController {
 
@@ -25,9 +24,9 @@ public class ClientController {
     @Autowired
     private RestTemplate restTemplate;
 
-//    @Autowired
-//    private OrderClient orderClient;
-
+  /*  @Autowired
+    private OrderClient orderClient;
+*/
     @GetMapping("/getProductMsg")
     public String getProductMsg(){
 

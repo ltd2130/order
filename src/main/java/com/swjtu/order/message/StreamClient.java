@@ -15,6 +15,7 @@ public interface StreamClient {
     String OUTPUT = "OutputMessage";
     @Input(INPUT)
     SubscribableChannel input();
+
     @Output(OUTPUT)
     MessageChannel output();
 
@@ -24,6 +25,5 @@ public interface StreamClient {
     SubscribableChannel input2();
     @Output(OUTPUT2)
     MessageChannel output2();
-
 
 }
