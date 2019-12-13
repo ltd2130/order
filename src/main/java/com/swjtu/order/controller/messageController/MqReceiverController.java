@@ -1,4 +1,4 @@
-package com.swjtu.order.controller;
+package com.swjtu.order.controller.messageController;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

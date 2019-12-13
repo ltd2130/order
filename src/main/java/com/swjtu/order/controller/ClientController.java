@@ -43,7 +43,8 @@ public class ClientController {
 //        log.info("【服务端口】 port={}" , serviceInstance.getPort());
 
 
-        //3. 第三种方式（利用@LoadBalanced，可在restTemplate里使用应用名字代指IP地址和端口号）
+        //3. 第三种方式（利用@LoadBalanced，可在restTemplate里使用应用名字代指IP地址和端口号，
+        // 但是需要将RestTemplate作为一个Bean进行注入，才可以使用，见config包下面的RestTemplateConfig）
 //        String response = restTemplate.getForObject("http://PRODUCT/product/Msg", String.class);
 //        log.info("response={}", response);
 

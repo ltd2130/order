@@ -50,6 +50,10 @@ feign:
   hystrix:
     enabled: true
 
+#配置此服务访问Product服务的时候，实例的选择采用RandomRule，即随机的方式，而默认Ribbon的轮序方式是：RoundRibbonRule，即轮询的方式
+#PRODUCT:
+#  ribbon:
+#    NFLoadBanlancerRuleClassName: com.netflix.loadbalancer.RandomRule
 #management:
 #  endpoints:
 #    web:

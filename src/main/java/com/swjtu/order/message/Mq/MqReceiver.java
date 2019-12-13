@@ -1,4 +1,4 @@
-package com.swjtu.order.message;
+package com.swjtu.order.message.Mq;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

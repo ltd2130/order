@@ -1,4 +1,4 @@
-package com.swjtu.order.message;
+package com.swjtu.order.message.Stream;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;

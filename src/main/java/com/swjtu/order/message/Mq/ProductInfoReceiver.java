@@ -1,4 +1,4 @@
-package com.swjtu.order.message;
+package com.swjtu.order.message.Mq;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.swjtu.order.utils.JsonUtil;

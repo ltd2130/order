@@ -1,5 +1,6 @@
 package com.swjtu.order.test;
 
+import com.alibaba.fastjson.JSONObject;
 import com.swjtu.order.client.OrderClient;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

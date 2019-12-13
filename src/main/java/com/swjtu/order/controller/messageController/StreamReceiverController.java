@@ -1,9 +1,8 @@
-package com.swjtu.order.controller;
+package com.swjtu.order.controller.messageController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import com.swjtu.order.dto.OrderDTO;
-import com.swjtu.order.message.StreamClient;
+import com.swjtu.order.message.Stream.StreamClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
